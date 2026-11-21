@@ -2,141 +2,182 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>The World in One Picture — Friday 20 November 2026</title>
+<title>The World in One Picture — 20 November 2026</title>
 <style>
+  :root {
+    --paper: #f4efe2;
+    --ink: #1f2739;
+    --accent: #bd2b28;
+    --soft: #5b6474;
+    --cardline: #1f2739;
+    --shadow: rgba(16, 22, 38, 0.28);
+  }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { width: 1024px; height: 1024px; }
+  html, body { width: 1024px; height: 1024px; overflow: hidden; }
   body {
-    background: #f6f1e5;
-    color: #16213a;
-    font-family: "Liberation Sans", "DejaVu Sans", Arial, sans-serif;
-    padding: 22px 36px 20px 36px;
+    background: var(--paper);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+  }
+  .sheet {
+    width: 1024px;
+    height: 1024px;
+    padding: 22px 26px 20px;
     display: flex;
     flex-direction: column;
   }
 
-  /* ---------- masthead: the day, named big ---------- */
-  header { text-align: center; }
-  .kicker {
-    display: flex; align-items: center; gap: 18px;
-    font-size: 23px; font-weight: 700; letter-spacing: 7px; color: #16213a;
+  /* ---------- masthead ---------- */
+  .mast { text-align: center; flex: none; }
+  .mast .rule {
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
   }
-  .kicker::before, .kicker::after {
-    content: ""; flex: 1; height: 4px; background: #c1272d;
+  .mast .kicker {
+    margin-top: 12px;
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 9px;
+    text-indent: 9px;
+    color: var(--ink);
   }
-  .kicker span { white-space: nowrap; }
-  .date {
-    margin-top: 8px;
-    font-size: 55px; font-weight: 800; letter-spacing: 1px; line-height: 1.05;
-    white-space: nowrap;
+  .mast h1 {
+    margin-top: 5px;
+    font-size: 54px;
+    line-height: 1.02;
+    font-weight: 900;
+    letter-spacing: 0.5px;
   }
-  .date .weekday { color: #c1272d; }
-  .rule {
-    margin-top: 10px;
-    border-top: 5px solid #16213a;
-    border-bottom: 2px solid #16213a;
-    height: 9px;
-  }
-
-  /* ---------- panels: the picture carries the story ---------- */
-  .panel {
-    position: relative;
-    overflow: hidden;
-    border: 3px solid #16213a;
-    border-radius: 3px;
-    background: #22304a;
-  }
-  .panel img {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover; display: block;
-  }
-  .panel figcaption {
-    position: absolute; left: 0; right: 0; bottom: 0;
-    padding: 44px 22px 15px 22px;
-    background: linear-gradient(to bottom,
-      rgba(8, 12, 22, 0) 0%,
-      rgba(8, 12, 22, 0.45) 42%,
-      rgba(8, 12, 22, 0.90) 100%);
-    color: #ffffff;
-  }
-  .panel h2 {
-    font-weight: 800; text-transform: uppercase;
-    line-height: 1.08; letter-spacing: 0.3px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
-  }
-  .panel p {
-    margin-top: 6px;
-    font-size: 28px; line-height: 1.25; color: #e9edf5;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.5);
+  .mast h1 .dow { color: var(--accent); }
+  .mast h1 .dmy { color: var(--ink); }
+  .mast .doublebar {
+    margin-top: 11px;
+    border-top: 3px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    height: 6px;
   }
 
-  .hero { margin-top: 14px; height: 330px; flex: 0 0 auto; }
-  .hero h2 { font-size: 46px; }
-  .hero figcaption { padding-top: 68px; }
-
-  .grid {
-    margin-top: 14px;
+  /* ---------- picture board ---------- */
+  .board {
+    margin-top: 13px;
     flex: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 14px;
+    grid-template-rows: 382px 1fr 1fr;
+    grid-template-areas:
+      "lead lead"
+      "one two"
+      "three four";
+    gap: 12px;
   }
-  .grid h2 { font-size: 40px; }
+  .story {
+    position: relative;
+    overflow: hidden;
+    border: 3px solid var(--cardline);
+    border-radius: 9px;
+    background: #0c1220;
+    box-shadow: 0 3px 0 var(--shadow);
+  }
+  .lead { grid-area: lead; }
+  .cell-one { grid-area: one; }
+  .cell-two { grid-area: two; }
+  .cell-three { grid-area: three; }
+  .cell-four { grid-area: four; }
+  .story img.scene {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .story .cap {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 64px 18px 15px;
+    background: linear-gradient(
+      to bottom,
+      rgba(8, 12, 26, 0) 0%,
+      rgba(8, 12, 26, 0.62) 46%,
+      rgba(8, 12, 26, 0.93) 100%
+    );
+    color: #ffffff;
+  }
+  .story .cap h2 {
+    font-size: 40px;
+    line-height: 1.03;
+    font-weight: 900;
+    letter-spacing: -0.4px;
+    text-transform: uppercase;
+    text-wrap: balance;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55);
+  }
+  .lead .cap h2 { font-size: 47px; letter-spacing: -0.2px; }
+  .story .cap p {
+    margin-top: 7px;
+    font-size: 28px;
+    line-height: 1.22;
+    font-weight: 500;
+    color: #f2f0e8;
+    text-wrap: balance;
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  }
+  .lead .cap p { font-size: 29px; }
 </style>
 </head>
 <body>
+<div class="sheet">
+  <header class="mast">
+    <div class="rule"></div>
+    <p class="kicker">THE WORLD IN ONE PICTURE</p>
+    <h1><span class="dow">FRIDAY</span> <span class="dmy">20 NOVEMBER 2026</span></h1>
+    <div class="doublebar"></div>
+  </header>
 
-<header>
-  <div class="kicker"><span>THE WORLD IN ONE PICTURE</span></div>
-  <div class="date"><span class="weekday">FRIDAY</span> 20 NOVEMBER 2026</div>
-  <div class="rule"></div>
-</header>
+  <main class="board">
+    <figure class="story lead">
+      <img class="scene" src="assets/hero-kyiv.webp" alt="Smoke rising over Kyiv bridges on the Dnipro">
+      <figcaption class="cap">
+        <h2>Russia Hits Three Kyiv Bridges</h2>
+        <p>Seven killed, 17 hurt as Dnipro crossings shut</p>
+      </figcaption>
+    </figure>
 
-<figure class="panel hero">
-  <img src="assets/hero-kyiv.webp" alt="Three bridges across the Dnipro in Kyiv in flames, one span collapsed into the river, with the golden-domed Kyiv skyline behind">
-  <figcaption>
-    <h2>Russia Hits Three Kyiv Bridges</h2>
-    <p>Seven killed, 17 hurt as Dnipro crossings shut</p>
-  </figcaption>
-</figure>
+    <figure class="story cell-one">
+      <img class="scene" src="assets/panel-cyclone.webp" alt="Cyclone spiral over the Odisha coast">
+      <figcaption class="cap">
+        <h2>Cyclone Akvan Hits Odisha</h2>
+        <p>372,000 evacuated — no deaths reported</p>
+      </figcaption>
+    </figure>
 
-<div class="grid">
+    <figure class="story cell-two">
+      <img class="scene" src="assets/panel-markets.webp" alt="Red market chart falling on a trading screen">
+      <figcaption class="cap">
+        <h2>AI Sell-Off Goes Global</h2>
+        <p>Nikkei -5%, Nasdaq -5.3%, Nvidia -14%</p>
+      </figcaption>
+    </figure>
 
-  <figure class="panel">
-    <img src="assets/panel-cyclone.webp" alt="A huge cyclone spiral over the Bay of Bengal coast, with flooded land and shelters below">
-    <figcaption>
-      <h2>Cyclone Akvan Hits Odisha</h2>
-      <p>372,000 evacuated &mdash; no deaths reported</p>
-    </figcaption>
-  </figure>
+    <figure class="story cell-three">
+      <img class="scene" src="assets/panel-cop31.webp" alt="Flags and hall of the COP31 climate summit at night">
+      <figcaption class="cap">
+        <h2>COP31 Goes Into Overtime</h2>
+        <p>No deal on final day — fossil-fuel text gone</p>
+      </figcaption>
+    </figure>
 
-  <figure class="panel">
-    <img src="assets/panel-markets.webp" alt="A giant stock market screen with a steep red chart line plunging, a computer chip in front, traders silhouetted below">
-    <figcaption>
-      <h2>AI Sell-Off Goes Global</h2>
-      <p>Nikkei -5%, Nasdaq -5.3%, Nvidia -14%</p>
-    </figcaption>
-  </figure>
-
-  <figure class="panel">
-    <img src="assets/panel-cop31.webp" alt="A climate summit hall at night, flags hanging above empty negotiation tables, a globe and solar panels in front">
-    <figcaption>
-      <h2>COP31 Goes Into Overtime</h2>
-      <p>No deal on final day &mdash; fossil-fuel text gone</p>
-    </figcaption>
-  </figure>
-
-  <figure class="panel">
-    <img src="assets/panel-cars.webp" alt="Rows of new electric cars behind a fence and barrier at a port, with the American and Chinese flags flying">
-    <figcaption>
-      <h2>US Nears Ban on Chinese Cars</h2>
-      <p>Deal close, Mercedes spared</p>
-    </figcaption>
-  </figure>
-
+    <figure class="story cell-four">
+      <img class="scene" src="assets/panel-cars.webp" alt="Electric cars behind a fence under US and Chinese flags">
+      <figcaption class="cap">
+        <h2>US Nears Ban on Chinese Cars</h2>
+        <p>Deal close, Mercedes spared</p>
+      </figcaption>
+    </figure>
+  </main>
 </div>
-
 </body>
 </html>
